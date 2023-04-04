@@ -19,25 +19,6 @@
             "links": [
                 3
             ]
-        },
-        "3": {
-            "Standard": "AEG Kabelwerke Oberspree",
-            "German": "AEG Kabelwerke Oberspree",
-            "English": null,
-            "FNameAbbr": null,
-            "ParentFirm": 9.0,
-            "FirmNote": null,
-            "links": [
-                4
-            ]
-        },
-        "4": {
-            "Standard": "AG Bergbau- und H\u00fcttenbedarf",
-            "German": "AG Bergbau- und H\u00fcttenbedarf",
-            "English": null,
-            "FNameAbbr": null,
-            "ParentFirm": 402.0,
-            "FirmNote": null,
-            "links": []
         }
+       }
     }
