@@ -1,59 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JSON data display</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Database App</title>
 </head>
 <body>
-	<label for="select-standard">Select Standard:</label>
-	<select id="select-standard">
-		<option value="">--Select--</option>
-	</select>
+    <table id="firmsTable">
+        <thead>
+            <tr>
+                <th>Standard</th>
+                <th>German</th>
+                <th>English</th>
+                <th>FNameAbbr</th>
+                <th>ParentFirm</th>
+                <th>FirmNote</th>
+                <th>Links</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-	<table id="data-table">
-		<thead>
-			<tr>
-				<th>Standard</th>
-				<th>German</th>
-				<th>English</th>
-				<th>FNameAbbr</th>
-				<th>ParentFirm</th>
-				<th>FirmNote</th>
-				<th>Links</th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
+    <script>
+        fetch('https://raw.githubusercontent.com/wjbmattingly/placing-holocaust-sample/main/complete_sample.json')
+            .then(response => response.json())
+            .then(data => {
+                const firms = data.firms;
+                const tableBody = document.querySelector('#firmsTable tbody');
 
-	<script>
-		$(document).ready(function() {
-			// Read the JSON data
-			fetch('complete_sample.json')
-			  .then(response => response.json())
-			  .then(data => {
-			    // Create the dropdown menu options
-			    const options = $("#select-standard");
-			    Object.values(data).forEach(function(value) {
-			      options.append($("<option />").val(value.Standard).text(value.Standard));
-			    });
-			
-			    // Display the data based on the selected standard
-			    $("#select-standard").change(function() {
-			      const selected = $(this).val();
-			      if (selected === "") {
-			        $("#data-table tbody").empty();
-			        return;
-			      }
-			      const row = $("<tr />");
-			      const value = data[selected];
-			      Object.values(value).forEach(function(value) {
-			        row.append($("<td />").text(value));
-			      });
-			      $("#data-table tbody").empty().append(row);
-			    });
-			  })
-			  .catch(error => console.error(error));
-		});
-	</script>
+                for (let firmId in firms) {
+                    const firm = firms[firmId];
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${firm.Standard}</td>
+                        <td>${firm.German}</td>
+                        <td>${firm.English}</td>
+                        <td>${firm.FNameAbbr}</td>
+                        <td>${firm.ParentFirm}</td>
+                        <td>${firm.FirmNote}</td>
+                        <td>${firm.links}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                }
+            })
+            .catch(error => console.error(error));
+    </script>
 </body>
 </html>
